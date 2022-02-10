@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import util.HintTextFieldUI;
+import util.MetodosLogin;
 import util.RoundedBorder;
 
 import javax.swing.JButton;
@@ -18,13 +19,16 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private static JTextField tfUsu;
-	private JPasswordField tfPass;
+	private JTextField tfPass;
 	private JLabel lblNewLabel;
+	private static String contraseña="";
 
 	/**
 	 * Launch the application.
@@ -68,12 +72,38 @@ public class Login extends JFrame {
 		tfUsu.setColumns(10);
 		tfUsu.setUI(new HintTextFieldUI("Usuario", true));
 		
-		tfPass = new JPasswordField();
+		tfPass = new JTextField();
 		tfPass.setToolTipText("Introduzca la contrase\u00F1a");
 		tfPass.setColumns(10);
 		tfPass.setBounds(86, 136, 429, 38);
+		tfPass.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+				if (e.getKeyCode()!=8) { //esto es para poder borrar para que al detectar el codigo 8 no haga nada
+					contraseña += e.getKeyChar()+"";
+					tfPass.setText(MetodosLogin.transformarContraseña(contraseña));
+				}
+			
+				
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+			
+				
+			}
+		});
 		contentPane.add(tfPass);
-		tfPass.setUI(new HintTextFieldUI("Password", false));
+		tfPass.setUI(new HintTextFieldUI("Password", true));
 		
 		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
 		btnNewButton.setBackground(new Color(0, 153, 255));
