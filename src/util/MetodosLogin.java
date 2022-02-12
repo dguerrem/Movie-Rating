@@ -30,6 +30,7 @@ public class MetodosLogin {
 		JOptionPane.showMessageDialog(null, error, "Titulo", 0);
 	}
 	
+	.
 	
 	
 	
