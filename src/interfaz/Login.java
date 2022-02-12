@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
@@ -28,7 +30,7 @@ public class Login extends JFrame {
 	private JLabel lbRegistrarUsu;
 	private JLabel lbFondo;
 	private JLabel lbIniciarSesion;
-	private static String contrasenya = "";
+	private static String password = "";
 
 	/**
 	 * Launch the application.
@@ -72,6 +74,14 @@ public class Login extends JFrame {
 		btIniciarSesion.setBackground(new Color(0, 153, 255));
 		btIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btIniciarSesion.setBounds(86, 203, 118, 30);
+		btIniciarSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MetodosLogin.iniciarSesion(tfUsu.getText(), password);
+				
+			}
+		});
 		contentPane.add(btIniciarSesion);
 
 		lbFondo = new JLabel("New label");
@@ -111,13 +121,22 @@ public class Login extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() != 8) { // esto es para poder borrar para que al detectar el codigo 8 no haga nada
-					contrasenya += e.getKeyChar() + "";
-					tfPass.setText(MetodosLogin.transformarContraseña(contrasenya));
-				} else { // WIP: Convendría ajustarlo para que al borrar solo 1 caracter no se pierda
-							// todo.
-					contrasenya = "";
+				
+				if (e.getKeyCode() == 10) { // Al darle a intro se tiene que ejecutar el mismo metodo que al pulsar "Iniciar sesion"
+				MetodosLogin.iniciarSesion(tfUsu.getText(), password);
+				    return;
 				}
+				
+				if (e.getKeyCode() != 8) { // esto es para poder borrar para que al detectar el codigo 8 no haga nada
+					password += e.getKeyChar() + "";
+					tfPass.setText(MetodosLogin.transformarContraseña(password));
+				    return;
+				}
+					
+				password = password.substring(0, password.length()-1);
+				
+				
+				
 			}
 
 			@Override
