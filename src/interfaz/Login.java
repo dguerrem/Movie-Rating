@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import util.HintTextFieldUI;
+import util.UtilidadesComunes;
 import util.MetodosLogin;
 
 import javax.swing.JButton;
@@ -18,6 +19,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.swing.ImageIcon;
 
 public class Login extends JFrame {
@@ -78,7 +84,7 @@ public class Login extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodosLogin.iniciarSesion(tfUsu.getText(), password);
+				MetodosLogin.puedeIniciarSesion(tfUsu.getText(), password);
 				
 			}
 		});
@@ -121,22 +127,25 @@ public class Login extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				
-				if (e.getKeyCode() == 10) { // Al darle a intro se tiene que ejecutar el mismo metodo que al pulsar "Iniciar sesion"
-				MetodosLogin.iniciarSesion(tfUsu.getText(), password);
-				    return;
+
+				if (e.getKeyCode() == 10) { // Al darle a intro se tiene que ejecutar el mismo metodo que al pulsar
+											// "Iniciar sesion"
+					if (MetodosLogin.puedeIniciarSesion(tfUsu.getText(), password)) {
+						// ENTRARï¿½ A LA APLICACIï¿½N
+					} else {
+						dispose();
+					}
+
 				}
-				
+
 				if (e.getKeyCode() != 8) { // esto es para poder borrar para que al detectar el codigo 8 no haga nada
 					password += e.getKeyChar() + "";
-					tfPass.setText(MetodosLogin.transformarContraseña(password));
-				    return;
+					tfPass.setText(MetodosLogin.transformPassword(password));
+					return;
 				}
-					
-				password = password.substring(0, password.length()-1);
-				
-				
-				
+
+				password = password.substring(0, password.length() - 1);
+
 			}
 
 			@Override
@@ -144,12 +153,12 @@ public class Login extends JFrame {
 			}
 		});
 		contentPane.add(tfPass);
-		tfPass.setUI(new HintTextFieldUI("   Contraseña", true));
+		tfPass.setUI(new HintTextFieldUI("   Contrasenya", true));
 	}
 
 	private void creaToolTipsText() {
-		tfUsu.setToolTipText("Introduza el usuario");
-		tfPass.setToolTipText("Introduzca la contraseña");
+		tfUsu.setToolTipText(UtilidadesComunes.getConstante("introduzca_usuario"));
+		tfPass.setToolTipText("Introduzca la contrasenya");
 		lbRegistrarUsu.setToolTipText("Click para registrar un nuevo usuario");
 		btIniciarSesion.setToolTipText("Accede con tu usuario");
 	}
