@@ -1,29 +1,24 @@
 package interfaz;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import util.HintTextFieldUI;
 import util.UtilidadesComunes;
 import util.MetodosLogin;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import javax.swing.ImageIcon;
 
 public class Login extends JFrame {
@@ -38,9 +33,6 @@ public class Login extends JFrame {
 	private JLabel lbIniciarSesion;
 	private static String password = "";
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -55,15 +47,14 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		initFrame();
 		iniciaLabels();
 		iniciaTextFields();
 		iniciaBotones();
+		estableceTextos();
 		creaToolTipsText();
+		creaIcono();
 	}
 
 	private void initFrame() {
@@ -76,33 +67,33 @@ public class Login extends JFrame {
 	}
 
 	private void iniciaBotones() {
-		btIniciarSesion = new JButton("Iniciar Sesi\u00F3n");
+		btIniciarSesion = new JButton();
 		btIniciarSesion.setBackground(new Color(0, 153, 255));
 		btIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btIniciarSesion.setBounds(86, 203, 118, 30);
 		btIniciarSesion.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MetodosLogin.puedeIniciarSesion(tfUsu.getText(), password);
-				
+
 			}
 		});
 		contentPane.add(btIniciarSesion);
 
-		lbFondo = new JLabel("New label");
+		lbFondo = new JLabel();
 		lbFondo.setIcon(new ImageIcon(Login.class.getResource("/imagenes/fondoVerdeAzul.jpg")));
 		lbFondo.setBounds(-128, 0, 1084, 364);
 		contentPane.add(lbFondo);
 	}
 
 	private void iniciaLabels() {
-		lbIniciarSesion = new JLabel("Iniciar Sesi\u00F3n");
+		lbIniciarSesion = new JLabel();
 		lbIniciarSesion.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
 		lbIniciarSesion.setBounds(220, 21, 202, 50);
 		contentPane.add(lbIniciarSesion);
 
-		lbRegistrarUsu = new JLabel("Registrar Usuario");
+		lbRegistrarUsu = new JLabel();
 		lbRegistrarUsu.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbRegistrarUsu.setForeground(Color.BLUE);
 		lbRegistrarUsu.setBounds(371, 214, 158, 19);
@@ -114,7 +105,7 @@ public class Login extends JFrame {
 		tfUsu.setBounds(86, 83, 429, 38);
 		contentPane.add(tfUsu);
 		tfUsu.setColumns(10);
-		tfUsu.setUI(new HintTextFieldUI("  Usuario", true));
+		tfUsu.setUI(new HintTextFieldUI(UtilidadesComunes.getConstante("usuario"), true));
 
 		tfPass = new JTextField();
 		tfPass.setColumns(10);
@@ -153,13 +144,24 @@ public class Login extends JFrame {
 			}
 		});
 		contentPane.add(tfPass);
-		tfPass.setUI(new HintTextFieldUI("   Contrasenya", true));
+		tfPass.setUI(new HintTextFieldUI(UtilidadesComunes.getConstante("contrasenya"), true));
 	}
 
 	private void creaToolTipsText() {
 		tfUsu.setToolTipText(UtilidadesComunes.getConstante("introduzca_usuario"));
-		tfPass.setToolTipText("Introduzca la contrasenya");
-		lbRegistrarUsu.setToolTipText("Click para registrar un nuevo usuario");
-		btIniciarSesion.setToolTipText("Accede con tu usuario");
+		tfPass.setToolTipText(UtilidadesComunes.getConstante("introduzca_contrasenya"));
+		lbRegistrarUsu.setToolTipText(UtilidadesComunes.getConstante("click_registrar_nuevo_usuario"));
+		btIniciarSesion.setToolTipText(UtilidadesComunes.getConstante("accede_con_usuario"));
+	}
+
+	private void estableceTextos() {
+		btIniciarSesion.setText(UtilidadesComunes.getConstante("iniciar_sesion"));
+		lbIniciarSesion.setText(UtilidadesComunes.getConstante("iniciar_sesion"));
+		lbRegistrarUsu.setText(UtilidadesComunes.getConstante("registrar_usuario"));
+	}
+	
+	private void creaIcono() {
+		Image icono = Toolkit.getDefaultToolkit().getImage("src\\imagenes\\logo.png");  
+		setIconImage(icono);
 	}
 }
