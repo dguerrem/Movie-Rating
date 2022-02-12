@@ -1,10 +1,8 @@
 package util;
 
-import java.awt.Dialog;
 
 import javax.swing.JOptionPane;
 
-import interfaz.Login;
 
 public class MetodosLogin {
 
@@ -20,12 +18,19 @@ public class MetodosLogin {
 	public static void iniciarSesion(String usuario, String password) {
 		String error = "";
 		System.out.println(usuario + "\n" + password);
-		if (usuario.isEmpty()) {
+		
+		if (usuario.isEmpty() || password.isEmpty()) {
 			error = "Faltan datos";
 		}
+		//Hay que mirar que condiciones ponemos para que se puedan logear ej(contraseña inferior a 8 caracteres ...)
 		
 		
+		//Hay que hacer un select a la BBDD y comprobar que el nombre de usuario este si esta hay que comparar si la contraseña es igual
 		
 		JOptionPane.showMessageDialog(null, error, "Titulo", 0);
 	}
+	
+	
+	
+	
 }
