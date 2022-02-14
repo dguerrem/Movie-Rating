@@ -34,6 +34,8 @@ public class Login extends JFrame {
 	private JLabel lbFondo;
 	private JLabel lbIniciarSesion;
 	private static String password = "";
+	private JLabel lbIconUser;
+	private JLabel lbIconPassword;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,6 +64,7 @@ public class Login extends JFrame {
 	private void initFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 653, 403);
+		setTitle("Movie Rating");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,7 +75,7 @@ public class Login extends JFrame {
 		btIniciarSesion = new JButton();
 		btIniciarSesion.setBackground(new Color(0, 153, 255));
 		btIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btIniciarSesion.setBounds(86, 203, 118, 30);
+		btIniciarSesion.setBounds(120, 202, 118, 30);
 		btIniciarSesion.addActionListener(new ActionListener() {
 
 			@Override
@@ -85,14 +88,26 @@ public class Login extends JFrame {
 
 		lbFondo = new JLabel();
 		lbFondo.setIcon(new ImageIcon(Login.class.getResource("/imagenes/fondoVerdeAzul.jpg")));
-		lbFondo.setBounds(-128, 0, 1084, 364);
+		lbFondo.setBounds(-166, -132, 1084, 496);
 		contentPane.add(lbFondo);
 	}
 
 	private void iniciaLabels() {
+		
+		lbIconPassword = new JLabel("New label");
+		lbIconPassword.setIcon(new ImageIcon(Login.class.getResource("/imagenes/pass_icon.png")));
+		lbIconPassword.setBackground(Color.RED);
+		lbIconPassword.setBounds(62, 135, 40, 45);
+		contentPane.add(lbIconPassword);
+		
+		lbIconUser = new JLabel("New label");
+		lbIconUser.setBackground(Color.RED);
+		lbIconUser.setIcon(new ImageIcon(Login.class.getResource("/imagenes/user_icon.png")));
+		lbIconUser.setBounds(62, 82, 40, 45);
+		contentPane.add(lbIconUser);
 		lbIniciarSesion = new JLabel();
 		lbIniciarSesion.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
-		lbIniciarSesion.setBounds(220, 21, 202, 50);
+		lbIniciarSesion.setBounds(254, 21, 295, 50);
 		contentPane.add(lbIniciarSesion);
 
 		lbRegistrarUsu = new ClickableLabel();
@@ -104,14 +119,14 @@ public class Login extends JFrame {
 
 	private void iniciaTextFields() {
 		tfUsu = new JTextField();
-		tfUsu.setBounds(86, 83, 429, 38);
+		tfUsu.setBounds(120, 82, 429, 38);
 		contentPane.add(tfUsu);
 		tfUsu.setColumns(10);
 		tfUsu.setUI(new HintTextFieldUI(UtilidadesComunes.getConstante("usuario"), true));
 
 		tfPass = new JTextField();
 		tfPass.setColumns(10);
-		tfPass.setBounds(86, 136, 429, 38);
+		tfPass.setBounds(120, 135, 429, 38);
 		tfPass.addKeyListener(new KeyListener() {
 
 			@Override

@@ -83,4 +83,7 @@ public class Usuario {
 		this.codVerificacion = numeroVerificacion;
 	}
 
+	public String getUsuarioCompleto() {
+		return nombre + " " + apellidoUno + " " + apellidoDos + " " + fechaNacimiento + " " + correo;
+	}
 }
