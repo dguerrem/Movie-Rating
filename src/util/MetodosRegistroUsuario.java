@@ -8,7 +8,7 @@ public class MetodosRegistroUsuario {
 	
 	
 	//Metodo que tiene que llamarse al pulsar registrar usuario
-	public static void comprobarCampos (String nombre, String apellido1, String apellido2, Date fechaNacimiento, String password) {
+	public static void comprobarCampos (String nombre, String apellido1, String apellido2, Date fechaNacimiento, String correo, String password, String password2) {
 		
 		String error = "";
 		
@@ -28,12 +28,18 @@ public class MetodosRegistroUsuario {
 			error += "Contraseña ";
 		}
 		
-		if (error.isEmpty()) {
+		if (password != password2) {
+			error = "Las contraseñas no son iguales";
+		}
+		
+		if (!error.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Faltan datos o datos incorectos en los siguientes campos: " + error, "Faltan datos", 0);
-		}else {
+		}
+		if (revisarCorreo(correo) && error.isEmpty()){
 			String numeroVerificacion = generarNumeroVerificacion();
-			Usuario usu = new objetos.Usuario(nombre, apellido1, apellido2, fechaNacimiento, password, numeroVerificacion);
-			
+			Usuario usu = new objetos.Usuario(nombre, apellido1, apellido2, fechaNacimiento, correo, password, numeroVerificacion);
+			guardarUsuarioBBDD(usu);
+			JOptionPane.showMessageDialog(null, "Revise su correo", "Usuario creado correctamente", 0);
 		}
 			
 	}
@@ -55,9 +61,22 @@ public class MetodosRegistroUsuario {
 		return numeroVerificacion; 
 	}
 	
-	public void guardarUsuarioBBDD (Usuario usu) {
+	public static void guardarUsuarioBBDD (Usuario usu) {
 		//Hay que implementar la logica para guardar un objeto en la BBDD, si no se puede hay que crear los metodos get en usuario.
 		
 	}
+	
+	public static boolean revisarCorreo(String correo) {
+		
+		for (int i = 0; i < correo.length(); i++) {
+			if(correo.charAt(i)=='@') {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
 
 }
