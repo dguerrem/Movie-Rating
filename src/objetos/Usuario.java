@@ -2,8 +2,6 @@ package objetos;
 
 import java.sql.Date;
 
-import util.MetodosRegistroUsuario;
-
 public class Usuario {
 
 	String nombre;

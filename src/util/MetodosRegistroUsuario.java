@@ -1,10 +1,7 @@
 package util;
 
 import java.sql.Date;
-import java.util.Random;
-
 import javax.swing.JOptionPane;
-
 import objetos.Usuario;
 
 public class MetodosRegistroUsuario {
