@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import util.ClickableLabel;
 import util.HintTextFieldUI;
 import util.UtilidadesComunes;
 import util.MetodosLogin;
@@ -93,7 +95,7 @@ public class Login extends JFrame {
 		lbIniciarSesion.setBounds(220, 21, 202, 50);
 		contentPane.add(lbIniciarSesion);
 
-		lbRegistrarUsu = new JLabel();
+		lbRegistrarUsu = new ClickableLabel();
 		lbRegistrarUsu.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbRegistrarUsu.setForeground(Color.BLUE);
 		lbRegistrarUsu.setBounds(371, 214, 158, 19);

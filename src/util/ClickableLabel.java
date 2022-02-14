@@ -6,15 +6,15 @@ import java.awt.Graphics;
 import java.awt.Insets;
 import javax.swing.JLabel;
 
-public class ClickableLabels extends JLabel {
+public class ClickableLabel extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 
-	public ClickableLabels() {
+	public ClickableLabel() {
 		this("");
 	}
 
-	public ClickableLabels(String label) {
+	public ClickableLabel(String label) {
 		super(label);
 
 		setForeground(Color.BLUE.darker());
