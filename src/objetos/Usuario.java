@@ -4,13 +4,13 @@ import java.sql.Date;
 
 public class Usuario {
 
-	String nombre;
-	String apellidoUno;
-	String apellidoDos;
-	Date fechaNacimiento;
-	String correo;
-	String password;
-	String codVerificacion;
+	private String nombre;
+	private String apellidoUno;
+	private String apellidoDos;
+	private Date fechaNacimiento;
+	private String correo;
+	private String password;
+	private String codVerificacion;
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
