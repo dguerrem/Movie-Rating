@@ -1,4 +1,4 @@
-package util;
+package MovieRatingObjects;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -6,15 +6,15 @@ import java.awt.Graphics;
 import java.awt.Insets;
 import javax.swing.JLabel;
 
-public class ClickableLabel extends JLabel {
+public class MovieRatingClickableLabel extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 
-	public ClickableLabel() {
+	public MovieRatingClickableLabel() {
 		this("");
 	}
 
-	public ClickableLabel(String label) {
+	public MovieRatingClickableLabel(String label) {
 		super(label);
 
 		setForeground(Color.BLUE.darker());

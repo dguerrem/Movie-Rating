@@ -1,184 +1,106 @@
 package interfaz;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import util.ClickableLabel;
-import util.HintTextFieldUI;
-import util.UtilidadesComunes;
-import util.MetodosLogin;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
-
-import javax.swing.JTextField;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.ImageIcon;
 
-public class Login extends JFrame {
-
+public class Login extends javax.swing.JPanel {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField tfUsu;
-	private JTextField tfPass;
-	private JButton btIniciarSesion;
-	private JLabel lbRegistrarUsu;
-	private JLabel lbFondo;
-	private JLabel lbIniciarSesion;
-	private static String password = "";
-	private JLabel lbIconUser;
-	private JLabel lbIconPassword;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private javax.swing.JButton btRegistrar;
+	private javax.swing.JLabel lbUsuario;
+	private javax.swing.JLabel lbTituloLogin;
+	private javax.swing.JLabel lbPassword;
+	private MovieRatingObjects.MovieRatingBoton btIniciarSesion;
+	private MovieRatingObjects.MovieRatingPasswordField tfPassword;
+	private MovieRatingObjects.MovieRatingTextField tfUsuario;
 
 	public Login() {
-		initFrame();
-		iniciaLabels();
 		iniciaTextFields();
+		iniciaLabels();
 		iniciaBotones();
+		configuraVentana();
+		estableceFoco();
 		estableceTextos();
-		creaToolTipsText();
-		creaIcono();
-	}
-
-	private void initFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 653, 403);
-		setTitle("Movie Rating");
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-	}
-
-	private void iniciaBotones() {
-		btIniciarSesion = new JButton();
-		btIniciarSesion.setBackground(new Color(0, 153, 255));
-		btIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btIniciarSesion.setBounds(120, 202, 118, 30);
-		btIniciarSesion.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MetodosLogin.puedeIniciarSesion(tfUsu.getText(), password);
-
-			}
-		});
-		contentPane.add(btIniciarSesion);
-
-		lbFondo = new JLabel();
-		lbFondo.setIcon(new ImageIcon(Login.class.getResource("/imagenes/fondoVerdeAzul.jpg")));
-		lbFondo.setBounds(-166, -132, 1084, 496);
-		contentPane.add(lbFondo);
-	}
-
-	private void iniciaLabels() {
-		
-		lbIconPassword = new JLabel("New label");
-		lbIconPassword.setIcon(new ImageIcon(Login.class.getResource("/imagenes/pass_icon.png")));
-		lbIconPassword.setBackground(Color.RED);
-		lbIconPassword.setBounds(62, 135, 40, 45);
-		contentPane.add(lbIconPassword);
-		
-		lbIconUser = new JLabel("New label");
-		lbIconUser.setBackground(Color.RED);
-		lbIconUser.setIcon(new ImageIcon(Login.class.getResource("/imagenes/user_icon.png")));
-		lbIconUser.setBounds(62, 82, 40, 45);
-		contentPane.add(lbIconUser);
-		lbIniciarSesion = new JLabel();
-		lbIniciarSesion.setFont(new Font("Berlin Sans FB", Font.PLAIN, 32));
-		lbIniciarSesion.setBounds(254, 21, 295, 50);
-		contentPane.add(lbIniciarSesion);
-
-		lbRegistrarUsu = new ClickableLabel();
-		lbRegistrarUsu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbRegistrarUsu.setForeground(Color.BLUE);
-		lbRegistrarUsu.setBounds(371, 214, 158, 19);
-		contentPane.add(lbRegistrarUsu);
-	}
-
-	private void iniciaTextFields() {
-		tfUsu = new JTextField();
-		tfUsu.setBounds(120, 82, 429, 38);
-		contentPane.add(tfUsu);
-		tfUsu.setColumns(10);
-		tfUsu.setUI(new HintTextFieldUI(UtilidadesComunes.getConstante("usuario"), true));
-
-		tfPass = new JTextField();
-		tfPass.setColumns(10);
-		tfPass.setBounds(120, 135, 429, 38);
-		tfPass.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-
-				if (e.getKeyCode() == 10) { // Al darle a intro se tiene que ejecutar el mismo metodo que al pulsar
-											// "Iniciar sesion"
-					if (MetodosLogin.puedeIniciarSesion(tfUsu.getText(), password)) {
-						// ENTRAR� A LA APLICACI�N
-					} else {
-						dispose();
-					}
-
-				}
-
-				if (e.getKeyCode() != 8) { // esto es para poder borrar para que al detectar el codigo 8 no haga nada
-					password += e.getKeyChar() + "";
-					tfPass.setText(MetodosLogin.transformPassword(password));
-					return;
-				}
-
-				password = password.substring(0, password.length() - 1);
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-			}
-		});
-		contentPane.add(tfPass);
-		tfPass.setUI(new HintTextFieldUI(UtilidadesComunes.getConstante("contrasenya"), true));
-	}
-
-	private void creaToolTipsText() {
-		tfUsu.setToolTipText(UtilidadesComunes.getConstante("introduzca_usuario"));
-		tfPass.setToolTipText(UtilidadesComunes.getConstante("introduzca_contrasenya"));
-		lbRegistrarUsu.setToolTipText(UtilidadesComunes.getConstante("click_registrar_nuevo_usuario"));
-		btIniciarSesion.setToolTipText(UtilidadesComunes.getConstante("accede_con_usuario"));
 	}
 
 	private void estableceTextos() {
-		btIniciarSesion.setText(UtilidadesComunes.getConstante("iniciar_sesion"));
-		lbIniciarSesion.setText(UtilidadesComunes.getConstante("iniciar_sesion"));
-		lbRegistrarUsu.setText(UtilidadesComunes.getConstante("registrar_usuario"));
+		// Pendiente de configurar con los properties
+		lbUsuario.setText("User Name");
+		lbTituloLogin.setText("Login");
+		lbPassword.setText("Password");
+		btIniciarSesion.setText("Login");
+		btRegistrar.setText("Register Now");
 	}
-	
-	private void creaIcono() {
-		Image icono = Toolkit.getDefaultToolkit().getImage("src\\imagenes\\logo.png");  
-		setIconImage(icono);
+
+	private void iniciaBotones() {
+		btIniciarSesion = new MovieRatingObjects.MovieRatingBoton();
+		btIniciarSesion.setBackground(new java.awt.Color(125, 229, 251));
+		btIniciarSesion.setForeground(new java.awt.Color(40, 40, 40));
+
+		btRegistrar = new javax.swing.JButton();
+		btRegistrar.setFont(new java.awt.Font("sansserif", 1, 12));
+		btRegistrar.setForeground(new java.awt.Color(30, 122, 236));
+		btRegistrar.setContentAreaFilled(false);
+		btRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+	}
+
+	private void iniciaLabels() {
+		lbUsuario = new javax.swing.JLabel();
+		lbPassword = new javax.swing.JLabel();
+
+		lbTituloLogin = new javax.swing.JLabel();
+		lbTituloLogin.setFont(new java.awt.Font("sansserif", 1, 48));
+		lbTituloLogin.setForeground(new java.awt.Color(69, 68, 68));
+		lbTituloLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	}
+
+	private void iniciaTextFields() {
+		tfUsuario = new MovieRatingObjects.MovieRatingTextField();
+		tfPassword = new MovieRatingObjects.MovieRatingPasswordField();
+	}
+
+	private void estableceFoco() {
+		tfUsuario.grabFocus();
+	}
+
+	public void addEventRegister(ActionListener event) {
+		btRegistrar.addActionListener(event);
+	}
+
+	private void configuraVentana() {
+		setBackground(new java.awt.Color(255, 255, 255));
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addContainerGap(50, Short.MAX_VALUE)
+						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+								.addComponent(lbPassword).addComponent(lbUsuario)
+								.addComponent(tfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lbTituloLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+								.addComponent(tfPassword, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap(50, Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addContainerGap(50, Short.MAX_VALUE)
+						.addComponent(lbTituloLogin).addGap(18, 18, 18)
+						.addComponent(lbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(0, 0, 0)
+						.addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(0, 0, 0)
+						.addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(30, 30, 30)
+						.addComponent(btIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+						.addComponent(btRegistrar).addGap(30, 30, 30)));
 	}
 }
