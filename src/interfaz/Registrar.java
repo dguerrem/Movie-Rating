@@ -1,9 +1,12 @@
 package interfaz;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 
+import objetos.Usuario;
+import util.MetodosRegistroUsuario;
 import util.UtilidadesComunes;
 import java.awt.Font;
 
@@ -24,6 +27,7 @@ public class Registrar extends javax.swing.JPanel {
 	private MovieRatingObjects.MovieRatingTextField tfCorreo;
 	private MovieRatingObjects.MovieRatingTextField tfFechaNacimiento;
 	private MovieRatingObjects.MovieRatingTextField tfNombreCompleto;
+	private Usuario usuarioNuevo;
 
 	public Registrar() {
 		iniciaTextFields();
@@ -49,7 +53,7 @@ public class Registrar extends javax.swing.JPanel {
 
 		tfFechaNacimiento = new MovieRatingObjects.MovieRatingTextField();
 		tfFechaNacimiento.setPrefixIcon(new ImageIcon("src/iconos/calendar.png"));
-		
+
 		tfNombreCompleto = new MovieRatingObjects.MovieRatingTextField();
 		tfNombreCompleto.setPrefixIcon(new ImageIcon("src/iconos/nombre.png"));
 	}
@@ -59,6 +63,12 @@ public class Registrar extends javax.swing.JPanel {
 		btRegistrar.setBackground(new java.awt.Color(125, 229, 251));
 		btRegistrar.setForeground(new java.awt.Color(40, 40, 40));
 		btRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btRegistrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cargaUsuario();
+			}
+		});
 
 		btVolverInicio = new javax.swing.JButton();
 		btVolverInicio.setFont(new java.awt.Font("sansserif", 1, 12));
@@ -85,12 +95,12 @@ public class Registrar extends javax.swing.JPanel {
 		setBackground(new java.awt.Color(255, 255, 255));
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
-		
+
 		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
 				.createSequentialGroup().addContainerGap(50, Short.MAX_VALUE)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-						.addComponent(lbNombreCompleto).addComponent(lbFechaNacimiento).addComponent(lbCorreo).addComponent(lbPassword)
-						.addComponent(lbUsuario).addComponent(lbConfirmarPassword)
+						.addComponent(lbNombreCompleto).addComponent(lbFechaNacimiento).addComponent(lbCorreo)
+						.addComponent(lbPassword).addComponent(lbUsuario).addComponent(lbConfirmarPassword)
 						.addComponent(tfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lbTituloRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
@@ -107,10 +117,9 @@ public class Registrar extends javax.swing.JPanel {
 						.addComponent(tfFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(tfNombreCompleto, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						)
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				.addContainerGap(50, Short.MAX_VALUE)));
-		
+
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addContainerGap(50, Short.MAX_VALUE)
 						.addComponent(lbTituloRegistrar).addGap(8, 8, 8)
@@ -137,7 +146,7 @@ public class Registrar extends javax.swing.JPanel {
 						.addGap(0, 0, 0)
 						.addComponent(tfCorreo, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)					
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(lbFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addGap(0, 0, 0)
@@ -174,5 +183,11 @@ public class Registrar extends javax.swing.JPanel {
 
 	public void estableceFoco() {
 		tfUsuario.grabFocus();
+	}
+
+	private void cargaUsuario() {
+		MetodosRegistroUsuario.comprobarCampos(tfUsuario.getText(), tfNombreCompleto.getText(),
+				tfFechaNacimiento.getText(), tfCorreo.getText(), tfPassword.getText(), tfConfirmarPassword.getText());
+
 	}
 }

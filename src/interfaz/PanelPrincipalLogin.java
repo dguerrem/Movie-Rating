@@ -95,7 +95,7 @@ public class PanelPrincipalLogin extends javax.swing.JFrame {
 		slDeslizador.setAnimate(5);
 		slDeslizador.init(login, registro);
 
-		login.addEventRegister(new ActionListener() {
+		login.cambiaPanelRegistro(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				slDeslizador.show(1);

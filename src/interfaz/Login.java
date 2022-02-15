@@ -1,7 +1,10 @@
 package interfaz;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+
+import objetos.Usuario;
 import util.UtilidadesComunes;
 
 public class Login extends javax.swing.JPanel {
@@ -13,6 +16,7 @@ public class Login extends javax.swing.JPanel {
 	private MovieRatingObjects.MovieRatingBoton btIniciarSesion;
 	private MovieRatingObjects.MovieRatingPasswordField tfPassword;
 	private MovieRatingObjects.MovieRatingTextField tfUsuario;
+	private Usuario nuevoUsuario;
 
 	public Login() {
 		iniciaTextFields();
@@ -36,6 +40,12 @@ public class Login extends javax.swing.JPanel {
 		btIniciarSesion.setBackground(new java.awt.Color(125, 229, 251));
 		btIniciarSesion.setForeground(new java.awt.Color(40, 40, 40));
 		btIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btIniciarSesion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Iniciara Sesion
+			}
+		});
 
 		btRegistrar = new javax.swing.JButton();
 		btRegistrar.setFont(new java.awt.Font("sansserif", 1, 12));
@@ -66,7 +76,7 @@ public class Login extends javax.swing.JPanel {
 		tfUsuario.grabFocus();
 	}
 
-	public void addEventRegister(ActionListener event) {
+	public void cambiaPanelRegistro(ActionListener event) {
 		btRegistrar.addActionListener(event);
 	}
 
@@ -108,4 +118,6 @@ public class Login extends javax.swing.JPanel {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
 						.addComponent(btRegistrar).addGap(30, 30, 30)));
 	}
+	
+
 }

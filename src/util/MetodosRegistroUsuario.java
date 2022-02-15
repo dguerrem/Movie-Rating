@@ -1,18 +1,20 @@
 package util;
 
-import java.sql.Date;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import conexiones.MetodosAccesoBD;
 import objetos.Usuario;
 
 public class MetodosRegistroUsuario {
+	private static String error;
 
-	// Metodo que tiene que llamarse al pulsar registrar usuario
-	public static void comprobarCampos(String nick, String nombreCompleto, Date fechaNacimiento,
-			String correo, String password, String password2) {
+	public static void comprobarCampos(String nick, String nombreCompleto, String fechaNacimiento, String correo,
+			String password, String password2) {
 
-		String error = "";
-
-		if (nick.isEmpty() || nick.length() < 8) {
+		error = "";
+		if (nick.length() < 3) {
 			error += "Nick ";
 		}
 
@@ -20,7 +22,7 @@ public class MetodosRegistroUsuario {
 			error += "Nombre ";
 		}
 
-		if (fechaNacimiento.equals(null)) {
+		if (fechaNacimiento.isEmpty()) {
 			error += "Fecha de nacimiento ";
 		}
 
@@ -28,7 +30,7 @@ public class MetodosRegistroUsuario {
 			error += "Contraseña ";
 		}
 
-		if (password != password2) {
+		if (!password.equals(password2)) {
 			error = "Las contraseñas no son iguales";
 		}
 
@@ -36,18 +38,21 @@ public class MetodosRegistroUsuario {
 			JOptionPane.showMessageDialog(null, "Faltan datos o datos incorectos en los siguientes campos: " + error,
 					"Faltan datos", 0);
 		}
-		if (revisarCorreo(correo) && error.isEmpty()) {
+
+		if (esUnCorreoValido(correo) && error.isEmpty()) {
 			String numeroVerificacion = generarNumeroVerificacion();
 			Usuario usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, password,
 					numeroVerificacion);
-			guardarUsuarioBBDD(usu);
-			JOptionPane.showMessageDialog(null, "Revise su correo", "Usuario creado correctamente", 0);
+			try {
+				MetodosAccesoBD.insertUsuario(usu);
+			} catch (SQLException e) {
+				System.err.print(e);
+			}
 		}
 
 	}
 
 	public static String generarNumeroVerificacion() {
-
 		String letras = "abcdfghijklmnpqrstuvwxyz";
 		String letrasMayus = letras.toUpperCase();
 		String numeros = "0123456789";
@@ -62,20 +67,13 @@ public class MetodosRegistroUsuario {
 		return numeroVerificacion;
 	}
 
-	public static void guardarUsuarioBBDD(Usuario usu) {
-		// Hay que implementar la logica para guardar un objeto en la BBDD, si no se
-		// puede hay que crear los metodos get en usuario.
-
-	}
-
-	public static boolean revisarCorreo(String correo) {
+	public static boolean esUnCorreoValido(String correo) {
 
 		for (int i = 0; i < correo.length(); i++) {
 			if (correo.charAt(i) == '@') {
 				return true;
 			}
 		}
-
 		return false;
 	}
 

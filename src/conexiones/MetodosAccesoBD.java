@@ -1,42 +1,28 @@
 package conexiones;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import objetos.Usuario;
 
 public class MetodosAccesoBD {
-	private static Connection con;
-	private static ArrayList<Usuario> usuarios;
-	private static Statement stmt;
+	private static Connection conexion;
 	private static String query = "";
-	private static ResultSet rs;
-	private static Usuario usu;
 
-	public static void CreaArrayListClientes() {
-		usuarios = new ArrayList<>();
-		con = ConexionMySQL.conectarMySQL();
+	public static void insertUsuario(Usuario usu) throws SQLException {
+		conexion = ConexionMySQL.conectarMySQL();
+		query = "INSERT INTO usuarios (nick, nombreCompleto, fechaNacimiento, contrasenya, codVerificacion, tipoUsuario) "
+				+ "VALUES (' " + usu.getNick() + "', '" + usu.getNombreCompleto() + "', '" + usu.getFechaNacimiento()
+				+ "', '" + usu.getPassword() + "', '" + usu.getCodVerificacion() + "', '" + usu.getTipo() + "');";
 
-		try {
-			stmt = con.createStatement();
-			query = "select * from usuarios";
-			rs = stmt.executeQuery(query);
+		PreparedStatement pstm = conexion.prepareStatement(query);
+		pstm.execute();
 
-			while (rs.next()) {
-				usu = new Usuario();
-				usu.setNombre(rs.getString(2));
-				usu.setApellido1(rs.getString(3));
-				usu.setApellido2(rs.getString(4));
-				usuarios.add(usu);
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-
-		for (Usuario usuario : usuarios) {
-			System.out.println(usuario.getUsuarioCompleto());
-		}
+		System.out.print("Insertado en SQL");
+		JOptionPane.showMessageDialog(null, "Revise su correo", "Usuario creado correctamente", 0,
+				new ImageIcon("src/iconos/mensaje.png"));
 	}
 }

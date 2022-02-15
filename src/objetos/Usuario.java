@@ -6,7 +6,7 @@ public class Usuario {
 
 	private String nick;
 	private String nombreCompleto;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private String correo;
 	private String password;
 	private String codVerificacion;
@@ -16,7 +16,7 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Usuario(String nick, String nombreCompleto, Date fechaNacimiento, String correo,
+	public Usuario(String nick, String nombreCompleto, String fechaNacimiento, String correo,
 			String password, String numeroVerificacion) {
 		this.nick = nick;
 		this.nombreCompleto = nombreCompleto;
@@ -43,11 +43,11 @@ public class Usuario {
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
