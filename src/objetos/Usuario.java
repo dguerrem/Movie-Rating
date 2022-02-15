@@ -4,51 +4,43 @@ import java.sql.Date;
 
 public class Usuario {
 
-	private String nombre;
-	private String apellidoUno;
-	private String apellidoDos;
+	private String nick;
+	private String nombreCompleto;
 	private Date fechaNacimiento;
 	private String correo;
 	private String password;
 	private String codVerificacion;
+	private char tipo;
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Usuario(String nombre, String apellido1, String apellido2, Date fechaNacimiento, String correo,
+	public Usuario(String nick, String nombreCompleto, Date fechaNacimiento, String correo,
 			String password, String numeroVerificacion) {
-		this.nombre = nombre;
-		this.apellidoUno = apellido1;
-		this.apellidoDos = apellido2;
+		this.nick = nick;
+		this.nombreCompleto = nombreCompleto;
 		this.fechaNacimiento = fechaNacimiento;
 		this.correo = correo;
 		this.password = password;
 		this.codVerificacion = numeroVerificacion;
+		this.tipo = 'A';
+	}
+	
+	public String getNick() {
+		return nick;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public String getNombreCompleto() {
+		return nombreCompleto;
 	}
 
-	public String getApellido1() {
-		return apellidoUno;
-	}
-
-	public void setApellido1(String apellido1) {
-		this.apellidoUno = apellido1;
-	}
-
-	public String getApellido2() {
-		return apellidoDos;
-	}
-
-	public void setApellido2(String apellido2) {
-		this.apellidoDos = apellido2;
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
 	}
 
 	public Date getFechaNacimiento() {
@@ -75,15 +67,23 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public String getNumeroVerificacion() {
+	public String getCodVerificacion() {
 		return codVerificacion;
 	}
 
-	public void setNumeroVerificacion(String numeroVerificacion) {
-		this.codVerificacion = numeroVerificacion;
+	public void setCodVerificacion(String codVerificacion) {
+		this.codVerificacion = codVerificacion;
+	}
+
+	public char getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(char tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getUsuarioCompleto() {
-		return nombre + " " + apellidoUno + " " + apellidoDos + " " + fechaNacimiento + " " + correo;
+		return nick + " " + nombreCompleto + " " + fechaNacimiento + " " + correo;
 	}
 }

@@ -7,17 +7,17 @@ import objetos.Usuario;
 public class MetodosRegistroUsuario {
 
 	// Metodo que tiene que llamarse al pulsar registrar usuario
-	public static void comprobarCampos(String nombre, String apellido1, String apellido2, Date fechaNacimiento,
+	public static void comprobarCampos(String nick, String nombreCompleto, Date fechaNacimiento,
 			String correo, String password, String password2) {
 
 		String error = "";
 
-		if (nombre.isEmpty() || nombre.length() < 8) {
-			error += "Nombre ";
+		if (nick.isEmpty() || nick.length() < 8) {
+			error += "Nick ";
 		}
 
-		if (apellido1.isEmpty() || apellido2.isEmpty()) {
-			error += "Apellidos ";
+		if (nombreCompleto.isEmpty()) {
+			error += "Nombre ";
 		}
 
 		if (fechaNacimiento.equals(null)) {
@@ -38,7 +38,7 @@ public class MetodosRegistroUsuario {
 		}
 		if (revisarCorreo(correo) && error.isEmpty()) {
 			String numeroVerificacion = generarNumeroVerificacion();
-			Usuario usu = new objetos.Usuario(nombre, apellido1, apellido2, fechaNacimiento, correo, password,
+			Usuario usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, password,
 					numeroVerificacion);
 			guardarUsuarioBBDD(usu);
 			JOptionPane.showMessageDialog(null, "Revise su correo", "Usuario creado correctamente", 0);
