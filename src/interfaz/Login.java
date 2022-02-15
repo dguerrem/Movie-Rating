@@ -1,6 +1,8 @@
 package interfaz;
 
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import util.UtilidadesComunes;
 
 public class Login extends javax.swing.JPanel {
 	private static final long serialVersionUID = 1L;
@@ -22,18 +24,18 @@ public class Login extends javax.swing.JPanel {
 	}
 
 	private void estableceTextos() {
-		// Pendiente de configurar con los properties
-		lbUsuario.setText("User Name");
-		lbTituloLogin.setText("Login");
-		lbPassword.setText("Password");
-		btIniciarSesion.setText("Login");
-		btRegistrar.setText("Register Now");
+		lbUsuario.setText(UtilidadesComunes.getConstante("usuario"));
+		lbTituloLogin.setText(UtilidadesComunes.getConstante("iniciar_sesion"));
+		lbPassword.setText(UtilidadesComunes.getConstante("contrasenya"));
+		btIniciarSesion.setText(UtilidadesComunes.getConstante("iniciar_sesion"));
+		btRegistrar.setText(UtilidadesComunes.getConstante("registrar_usuario"));
 	}
 
 	private void iniciaBotones() {
 		btIniciarSesion = new MovieRatingObjects.MovieRatingBoton();
 		btIniciarSesion.setBackground(new java.awt.Color(125, 229, 251));
 		btIniciarSesion.setForeground(new java.awt.Color(40, 40, 40));
+		btIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
 		btRegistrar = new javax.swing.JButton();
 		btRegistrar.setFont(new java.awt.Font("sansserif", 1, 12));
@@ -54,7 +56,10 @@ public class Login extends javax.swing.JPanel {
 
 	private void iniciaTextFields() {
 		tfUsuario = new MovieRatingObjects.MovieRatingTextField();
+		tfUsuario.setPrefixIcon(new ImageIcon("src/iconos/usuario.png"));
+		
 		tfPassword = new MovieRatingObjects.MovieRatingPasswordField();
+		tfPassword.setPrefixIcon(new ImageIcon("src/iconos/password.png"));
 	}
 
 	private void estableceFoco() {

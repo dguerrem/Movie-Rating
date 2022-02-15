@@ -11,7 +11,7 @@ public class PanelPrincipalLogin extends javax.swing.JFrame {
 	private MovieRatingObjects.MovieRatingGradientPanel paPrincipal;
 	private MovieRatingObjects.MovieRatingSlidePanel slDeslizador;
 	private Login login;
-	private Registrar register;
+	private Registrar registro;
 
 	public PanelPrincipalLogin() {
 		configuraVentana();
@@ -90,20 +90,20 @@ public class PanelPrincipalLogin extends javax.swing.JFrame {
 
 	private void configuraAnimacionDeslizar() {
 		login = new Login();
-		register = new Registrar();
+		registro = new Registrar();
 
 		slDeslizador.setAnimate(5);
-		slDeslizador.init(login, register);
+		slDeslizador.init(login, registro);
 
 		login.addEventRegister(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				slDeslizador.show(1);
-				register.estableceFoco();
+				registro.estableceFoco();
 			}
 		});
 
-		register.addEventBackLogin(new ActionListener() {
+		registro.addEventBackLogin(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				slDeslizador.show(0);

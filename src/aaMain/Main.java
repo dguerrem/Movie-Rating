@@ -5,7 +5,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import interfaz.PanelPrincipalLogin;
 
-public class Init {
+public class Main {
 
 	public static void main(String[] args) throws SQLException {
 		try {
