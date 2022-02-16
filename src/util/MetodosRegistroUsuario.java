@@ -2,44 +2,46 @@ package util;
 
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import conexiones.MetodosAccesoBD;
+import interfaz.Registrar;
 import objetos.Usuario;
 
 public class MetodosRegistroUsuario {
-	private static String error;
 
 	public static void comprobarCampos(String nick, String nombreCompleto, String fechaNacimiento, String correo,
 			String password, String password2) {
-
-		error = "";
+		boolean esError = false;
 		if (nick.length() < 3) {
-			error += "Nick ";
-		}
-
-		if (nombreCompleto.isEmpty()) {
-			error += "Nombre ";
-		}
-
-		if (fechaNacimiento.isEmpty()) {
-			error += "Fecha de nacimiento ";
+			Registrar.cambiaFormato(1);
+			esError = true;
 		}
 
 		if (password.isEmpty() || password.length() < 8) {
-			error += "Contraseña ";
+			Registrar.cambiaFormato(2);
+			esError = true;
 		}
-
+		if (password2.isEmpty() || password2.length() < 8) {
+			Registrar.cambiaFormato(3);
+			esError = true;
+		}
+		
 		if (!password.equals(password2)) {
-			error = "Las contraseñas no son iguales";
+			Registrar.cambiaFormato(3);
+			esError = true;
 		}
 
-		if (!error.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Faltan datos o datos incorectos en los siguientes campos: " + error,
-					"Faltan datos", 0);
+		if (fechaNacimiento.isEmpty()) {
+			Registrar.cambiaFormato(5);
+			esError = true;
 		}
 
-		if (esUnCorreoValido(correo) && error.isEmpty()) {
+		if (nombreCompleto.isEmpty()) {
+			Registrar.cambiaFormato(6);
+			esError = true;
+		}
+
+
+		if (esUnCorreoValido(correo) && !esError) {
 			String numeroVerificacion = generarNumeroVerificacion();
 			Usuario usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, password,
 					numeroVerificacion);
@@ -74,6 +76,7 @@ public class MetodosRegistroUsuario {
 				return true;
 			}
 		}
+		Registrar.cambiaFormato(4);
 		return false;
 	}
 

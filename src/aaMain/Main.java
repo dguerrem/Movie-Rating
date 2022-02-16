@@ -17,15 +17,15 @@ public class Main {
                     break;
                 }
             }
-            //PanelPrincipalLogin miVentana = new PanelPrincipalLogin();
-    		//miVentana.setVisible(true);
+            PanelPrincipalLogin miVentana = new PanelPrincipalLogin();
+    		miVentana.setVisible(true);
             
-            String destinatario = "dacormus@gmail.com"; //A quien le quieres escribir.
+           /* String destinatario = "dacormus@gmail.com"; //A quien le quieres escribir.
             String asunto = "Correo de prueba enviado desde Java";
             String cuerpo = "Esta es una prueba de correo...";
 
             EmailSenderService mail = new EmailSenderService();
-            mail.enviarConGMail(destinatario, asunto, cuerpo);
+            mail.enviarConGMail(destinatario, asunto, cuerpo);*/
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PanelPrincipalLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

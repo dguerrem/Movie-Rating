@@ -8,18 +8,20 @@ import javax.swing.ImageIcon;
 import objetos.Usuario;
 import util.MetodosRegistroUsuario;
 import util.UtilidadesComunes;
+
+import java.awt.Color;
 import java.awt.Font;
 
 public class Registrar extends javax.swing.JPanel {
 	private static final long serialVersionUID = 1L;
-	private javax.swing.JButton btVolverInicio;
-	private javax.swing.JLabel lbUsuario;
-	private javax.swing.JLabel lbTituloRegistrar;
-	private javax.swing.JLabel lbPassword;
-	private javax.swing.JLabel lbConfirmarPassword;
-	private javax.swing.JLabel lbCorreo;
-	private javax.swing.JLabel lbFechaNacimiento;
-	private javax.swing.JLabel lbNombreCompleto;
+	private static javax.swing.JButton btVolverInicio;
+	private static javax.swing.JLabel lbUsuario;
+	private static javax.swing.JLabel lbTituloRegistrar;
+	private static javax.swing.JLabel lbPassword;
+	private static javax.swing.JLabel lbConfirmarPassword;
+	private static javax.swing.JLabel lbCorreo;
+	private static javax.swing.JLabel lbFechaNacimiento;
+	private static javax.swing.JLabel lbNombreCompleto;
 	private MovieRatingObjects.MovieRatingBoton btRegistrar;
 	private MovieRatingObjects.MovieRatingPasswordField tfPassword;
 	private MovieRatingObjects.MovieRatingPasswordField tfConfirmarPassword;
@@ -66,6 +68,7 @@ public class Registrar extends javax.swing.JPanel {
 		btRegistrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				resetFormato();
 				cargaUsuario();
 			}
 		});
@@ -189,5 +192,44 @@ public class Registrar extends javax.swing.JPanel {
 		MetodosRegistroUsuario.comprobarCampos(tfUsuario.getText(), tfNombreCompleto.getText(),
 				tfFechaNacimiento.getText(), tfCorreo.getText(), tfPassword.getText(), tfConfirmarPassword.getText());
 
+	}
+
+	public static void cambiaFormato(int numero) {
+		switch (numero) {
+		case 1: {
+			lbUsuario.setForeground(Color.red);
+			break;
+		}
+		case 2: {
+			lbPassword.setForeground(Color.red);
+			break;
+		}
+		case 3: {
+			lbConfirmarPassword.setForeground(Color.red);
+			break;
+		}
+		case 4: {
+			lbCorreo.setForeground(Color.red);
+			break;
+		}
+		case 5: {
+			lbFechaNacimiento.setForeground(Color.red);
+			break;
+		}
+		case 6: {
+			lbNombreCompleto.setForeground(Color.red);
+			break;
+		}
+
+		}
+	}
+
+	private void resetFormato() {
+		lbUsuario.setForeground(Color.black);
+		lbPassword.setForeground(Color.black);
+		lbConfirmarPassword.setForeground(Color.black);
+		lbCorreo.setForeground(Color.black);
+		lbFechaNacimiento.setForeground(Color.black);
+		lbNombreCompleto.setForeground(Color.black);
 	}
 }
