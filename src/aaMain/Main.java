@@ -27,6 +27,7 @@ public class Main {
             EmailSenderService mail = new EmailSenderService();
             mail.enviarConGMail(destinatario, asunto, cuerpo);*/
 
+    		
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PanelPrincipalLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
