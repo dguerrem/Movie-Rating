@@ -2,8 +2,12 @@ package interfaz;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
+import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import conexiones.MetodosAccesoBD;
 import objetos.Usuario;
 import util.UtilidadesComunes;
 
@@ -44,6 +48,16 @@ public class Login extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Iniciara Sesion
+			
+					try {
+						if(tfPassword.getText().equals(MetodosAccesoBD.selectUsuario(tfUsuario.getText()))) {
+							JOptionPane.showMessageDialog(null, "Inicio correcto", "Pulsa para continuar", 0);
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 			}
 		});
 

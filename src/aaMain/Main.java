@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.swing.UnsupportedLookAndFeelException;
 
+import conexiones.MetodosAccesoBD;
 import interfaz.PanelPrincipalLogin;
 import util.EmailSenderService;
 
@@ -19,7 +20,6 @@ public class Main {
             }
             PanelPrincipalLogin miVentana = new PanelPrincipalLogin();
     		miVentana.setVisible(true);
-            
            /* String destinatario = "dacormus@gmail.com"; //A quien le quieres escribir.
             String asunto = "Correo de prueba enviado desde Java";
             String cuerpo = "Esta es una prueba de correo...";
