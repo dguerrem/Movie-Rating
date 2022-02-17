@@ -2,6 +2,8 @@ package util;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import conexiones.MetodosAccesoBD;
 import interfaz.Registrar;
 import objetos.Usuario;
@@ -24,7 +26,7 @@ public class MetodosRegistroUsuario {
 			Registrar.cambiaFormato(3);
 			esError = true;
 		}
-		
+
 		if (!password.equals(password2)) {
 			Registrar.cambiaFormato(3);
 			esError = true;
@@ -40,18 +42,20 @@ public class MetodosRegistroUsuario {
 			esError = true;
 		}
 
-
 		if (esUnCorreoValido(correo) && !esError) {
 			String numeroVerificacion = generarNumeroVerificacion();
 			Usuario usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, password,
 					numeroVerificacion);
 			try {
-				MetodosAccesoBD.insertUsuario(usu);
+				if (MetodosAccesoBD.sePuedeCrear(usu.getNick())) {
+					MetodosAccesoBD.insertUsuario(usu);
+				} else {
+					Registrar.cambiaFormato(7);
+				}
 			} catch (SQLException e) {
 				System.err.print(e);
 			}
 		}
-
 	}
 
 	public static String generarNumeroVerificacion() {

@@ -22,14 +22,13 @@ public class Registrar extends javax.swing.JPanel {
 	private static javax.swing.JLabel lbCorreo;
 	private static javax.swing.JLabel lbFechaNacimiento;
 	private static javax.swing.JLabel lbNombreCompleto;
-	private MovieRatingObjects.MovieRatingBoton btRegistrar;
-	private MovieRatingObjects.MovieRatingPasswordField tfPassword;
-	private MovieRatingObjects.MovieRatingPasswordField tfConfirmarPassword;
-	private MovieRatingObjects.MovieRatingTextField tfUsuario;
-	private MovieRatingObjects.MovieRatingTextField tfCorreo;
-	private MovieRatingObjects.MovieRatingTextField tfFechaNacimiento;
-	private MovieRatingObjects.MovieRatingTextField tfNombreCompleto;
-	private Usuario usuarioNuevo;
+	private static MovieRatingObjects.MovieRatingBoton btRegistrar;
+	private static MovieRatingObjects.MovieRatingPasswordField tfPassword;
+	private static MovieRatingObjects.MovieRatingPasswordField tfConfirmarPassword;
+	private static MovieRatingObjects.MovieRatingTextField tfUsuario;
+	private static MovieRatingObjects.MovieRatingTextField tfCorreo;
+	private static MovieRatingObjects.MovieRatingTextField tfFechaNacimiento;
+	private static MovieRatingObjects.MovieRatingTextField tfNombreCompleto;
 
 	public Registrar() {
 		iniciaTextFields();
@@ -191,36 +190,48 @@ public class Registrar extends javax.swing.JPanel {
 	private void cargaUsuario() {
 		MetodosRegistroUsuario.comprobarCampos(tfUsuario.getText(), tfNombreCompleto.getText(),
 				tfFechaNacimiento.getText(), tfCorreo.getText(), tfPassword.getText(), tfConfirmarPassword.getText());
-
 	}
 
 	public static void cambiaFormato(int numero) {
 		switch (numero) {
 		case 1: {
 			lbUsuario.setForeground(Color.red);
+			tfUsuario.formatoErroneo(tfUsuario.getGraphics());
 			break;
 		}
 		case 2: {
 			lbPassword.setForeground(Color.red);
+			tfPassword.formatoErroneo(tfPassword.getGraphics());
 			break;
 		}
 		case 3: {
 			lbConfirmarPassword.setForeground(Color.red);
+			tfConfirmarPassword.formatoErroneo(tfConfirmarPassword.getGraphics());
 			break;
 		}
 		case 4: {
 			lbCorreo.setForeground(Color.red);
+			tfCorreo.formatoErroneo(tfCorreo.getGraphics());
 			break;
 		}
 		case 5: {
 			lbFechaNacimiento.setForeground(Color.red);
+			tfFechaNacimiento.formatoErroneo(tfFechaNacimiento.getGraphics());
 			break;
 		}
 		case 6: {
 			lbNombreCompleto.setForeground(Color.red);
+			tfNombreCompleto.formatoErroneo(tfNombreCompleto.getGraphics());
 			break;
 		}
-
+		case 7: {
+			lbUsuario.setForeground(Color.red);
+			lbUsuario.setText(UtilidadesComunes.getConstante("usuario_creado"));
+			tfUsuario.setText("");
+			tfUsuario.grabFocus();
+			tfUsuario.formatoErroneo(tfUsuario.getGraphics());
+			break;
+		}
 		}
 	}
 

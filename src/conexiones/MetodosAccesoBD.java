@@ -36,6 +36,19 @@ public class MetodosAccesoBD {
 		ResultSet rs = s.executeQuery(query);
 		rs.next();
 		return rs.getString(1);
+	}
 
+	public static boolean sePuedeCrear(String nombreUsuario) throws SQLException {
+		conexion = ConexionMySQL.conectarMySQL();
+		query = "select count(nick) from usuarios where nick =" + "'" + nombreUsuario + "';";
+		Statement s = conexion.createStatement();
+		ResultSet rs = s.executeQuery(query);
+		rs.next();
+		int num = rs.getInt(1);
+
+		if (num == 0) {
+			return true;
+		}
+		return false;
 	}
 }

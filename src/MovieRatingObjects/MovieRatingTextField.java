@@ -12,6 +12,7 @@ public class MovieRatingTextField extends JTextField {
 	private static final long serialVersionUID = 1L;
 	private Icon prefixIcon;
 	private Icon suffixIcon;
+	private Graphics g;
 
 	public MovieRatingTextField() {
 		setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 5, 7, 5));
@@ -29,6 +30,7 @@ public class MovieRatingTextField extends JTextField {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		this.g = g;
 		super.paintComponent(g);
 		paintIcon(g);
 		if (isFocusOwner()) {
@@ -67,5 +69,17 @@ public class MovieRatingTextField extends JTextField {
 			right = suffixIcon.getIconWidth() + 10;
 		}
 		setBorder(javax.swing.BorderFactory.createEmptyBorder(7, left, 7, right));
+	}
+	
+	public void formatoErroneo(Graphics g) {
+		if (isFocusOwner()) {
+			g.setColor(new Color(196, 6, 6));
+			g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+			g.drawRect(1, 1, getWidth() - 3, getHeight() - 3);
+		} else {
+			g.setColor(new Color(195, 76, 76));
+			g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+			g.drawRect(1, 1, getWidth() - 3, getHeight() - 3);
+		}
 	}
 }
