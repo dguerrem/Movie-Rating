@@ -2,13 +2,9 @@ package interfaz;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
-
-import objetos.Usuario;
 import util.MetodosRegistroUsuario;
 import util.UtilidadesComunes;
-
 import java.awt.Color;
 import java.awt.Font;
 
@@ -189,7 +185,7 @@ public class Registrar extends javax.swing.JPanel {
 
 	private void cargaUsuario() {
 		MetodosRegistroUsuario.comprobarCampos(tfUsuario.getText(), tfNombreCompleto.getText(),
-				tfFechaNacimiento.getText(), tfCorreo.getText(), tfPassword.getText(), tfConfirmarPassword.getText());
+				tfFechaNacimiento.getText(), tfCorreo.getText(), tfPassword.getPassword(), tfConfirmarPassword.getPassword());
 	}
 
 	public static void cambiaFormato(int numero) {

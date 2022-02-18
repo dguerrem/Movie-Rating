@@ -1,9 +1,6 @@
 package util;
 
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-
 import conexiones.MetodosAccesoBD;
 import interfaz.Registrar;
 import objetos.Usuario;
@@ -11,23 +8,23 @@ import objetos.Usuario;
 public class MetodosRegistroUsuario {
 
 	public static void comprobarCampos(String nick, String nombreCompleto, String fechaNacimiento, String correo,
-			String password, String password2) {
+			char[] password, char[] password2) {
 		boolean esError = false;
 		if (nick.length() < 3) {
 			Registrar.cambiaFormato(1);
 			esError = true;
 		}
 
-		if (password.isEmpty() || password.length() < 8) {
+		if (password.length < 8) {
 			Registrar.cambiaFormato(2);
 			esError = true;
 		}
-		if (password2.isEmpty() || password2.length() < 8) {
+		if (password2.length < 8) {
 			Registrar.cambiaFormato(3);
 			esError = true;
 		}
 
-		if (!password.equals(password2)) {
+		if (!String.valueOf(password).equals(String.valueOf(password2))) {
 			Registrar.cambiaFormato(3);
 			esError = true;
 		}
@@ -44,7 +41,7 @@ public class MetodosRegistroUsuario {
 
 		if (esUnCorreoValido(correo) && !esError) {
 			String numeroVerificacion = generarNumeroVerificacion();
-			Usuario usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, password,
+			Usuario usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, String.valueOf(password),
 					numeroVerificacion);
 			try {
 				if (MetodosAccesoBD.sePuedeCrear(usu.getNick())) {

@@ -3,12 +3,9 @@ package interfaz;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-
 import conexiones.MetodosAccesoBD;
-import objetos.Usuario;
 import util.UtilidadesComunes;
 
 public class Login extends javax.swing.JPanel {
@@ -20,7 +17,6 @@ public class Login extends javax.swing.JPanel {
 	private MovieRatingObjects.MovieRatingBoton btIniciarSesion;
 	private MovieRatingObjects.MovieRatingPasswordField tfPassword;
 	private MovieRatingObjects.MovieRatingTextField tfUsuario;
-	private Usuario nuevoUsuario;
 
 	public Login() {
 		iniciaTextFields();
@@ -47,15 +43,12 @@ public class Login extends javax.swing.JPanel {
 		btIniciarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Iniciara Sesion
-			
 					try {
-						if(tfPassword.getText().equals(MetodosAccesoBD.selectUsuario(tfUsuario.getText()))) {
+						if(String.valueOf(tfPassword.getPassword()).equals(MetodosAccesoBD.selectUsuario(tfUsuario.getText()))) {
 							JOptionPane.showMessageDialog(null, "Inicio correcto", "Pulsa para continuar", 0);
 						}
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						System.err.print(e);
 					}
 
 			}

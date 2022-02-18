@@ -1,7 +1,5 @@
 package objetos;
 
-import java.sql.Date;
-
 public class Usuario {
 
 	private String nick;

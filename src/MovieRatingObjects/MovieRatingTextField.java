@@ -12,7 +12,6 @@ public class MovieRatingTextField extends JTextField {
 	private static final long serialVersionUID = 1L;
 	private Icon prefixIcon;
 	private Icon suffixIcon;
-	private Graphics g;
 
 	public MovieRatingTextField() {
 		setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 5, 7, 5));
@@ -30,7 +29,6 @@ public class MovieRatingTextField extends JTextField {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		this.g = g;
 		super.paintComponent(g);
 		paintIcon(g);
 		if (isFocusOwner()) {
