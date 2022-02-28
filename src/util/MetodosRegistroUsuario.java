@@ -19,6 +19,7 @@ public class MetodosRegistroUsuario {
 			Registrar.cambiaFormato(2);
 			esError = true;
 		}
+		
 		if (password2.length < 8) {
 			Registrar.cambiaFormato(3);
 			esError = true;

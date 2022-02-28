@@ -12,19 +12,16 @@ public class UtilidadesComunes extends Properties {
 	private static InputStream input = null;
 	private static Properties prop = new Properties();
 	private static Locale currentLocale = Locale.getDefault();
-	private static String ruta = "src/labels/" +  currentLocale.getLanguage().toUpperCase() + "_labels.properties";
+	private static String ruta = "src/labels/" + currentLocale.getLanguage().toUpperCase() + "_labels.properties";
 
 	public static String getConstante(String palabra) {
-		
 		try {
 			input = new FileInputStream(ruta);
 			prop.load(input);
 			return (prop.getProperty(palabra));
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return null;
 		}
 	}
-
 }
