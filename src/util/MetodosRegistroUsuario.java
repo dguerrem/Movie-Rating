@@ -1,7 +1,7 @@
 package util;
 
 import java.sql.SQLException;
-import conexiones.MetodosAccesoBD;
+
 import interfaz.Registrar;
 import objetos.Usuario;
 
@@ -47,6 +47,7 @@ public class MetodosRegistroUsuario {
 			try {
 				if (MetodosAccesoBD.sePuedeCrear(usu.getNick())) {
 					MetodosAccesoBD.insertUsuario(usu);
+					MetodosAccesoBD.enviaMensaje(usu.getNick(), usu.getCodVerificacion());
 				} else {
 					Registrar.cambiaFormato(7);
 				}
@@ -67,12 +68,10 @@ public class MetodosRegistroUsuario {
 			int numero = (int) (Math.random() * todos.length() + 1);
 			numeroVerificacion += todos.substring(numero - 1, numero);
 		}
-
 		return numeroVerificacion;
 	}
 
 	public static boolean esUnCorreoValido(String correo) {
-
 		for (int i = 0; i < correo.length(); i++) {
 			if (correo.charAt(i) == '@') {
 				return true;

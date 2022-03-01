@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import conexiones.MetodosAccesoBD;
+
+import util.MetodosAccesoBD;
 import util.UtilidadesComunes;
 
 public class Login extends javax.swing.JPanel {
