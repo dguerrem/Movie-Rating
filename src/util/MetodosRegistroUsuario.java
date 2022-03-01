@@ -47,7 +47,8 @@ public class MetodosRegistroUsuario {
 			try {
 				if (MetodosAccesoBD.sePuedeCrear(usu.getNick())) {
 					MetodosAccesoBD.insertUsuario(usu);
-					MetodosAccesoBD.enviaMensaje(usu.getNick(), usu.getCodVerificacion());
+					MetodosEnvioMail.enviaMail();
+					MetodosAccesoBD.compruebaCodigoVerificacion(usu.getNick(), usu.getCodVerificacion());
 				} else {
 					Registrar.cambiaFormato(7);
 				}

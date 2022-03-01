@@ -57,7 +57,7 @@ public class MetodosAccesoBD {
 		return false;
 	}
 
-	public static void enviaMensaje(String usuNick, String usuCodVerificacion) throws SQLException {
+	public static void compruebaCodigoVerificacion(String usuNick, String usuCodVerificacion) throws SQLException {
 		conexion = ConexionMySQL.conectarMySQL();
 		query = "SELECT codVerificacion FROM usuarios WHERE nick = '" + usuNick + "';";
 		s = conexion.createStatement();
