@@ -28,7 +28,11 @@ public class MetodosEnvioMail {
 		contrasena = "Sox@1234";
 		destinatario = "dacormo01@hotmail.com";
 		asunto = "Asunto mensaje";
-		mensaje = "Mensaje";
+		mensaje = "<div style='width: 70%;height: 200px;margin:0 auto;background-color: #92e9fb;color:black;font-family: Arial, Helvetica, sans-serif;'>"
+				+ "<h1 style='text-align: center;padding-top: 20px;'> Verifica tu Cuenta de Movie Rating</h1>"
+				+ "<h4 style='width: 70%; margin:0 auto; text-align: center;padding-left: 30px;padding-right: 30px;'>Bienvenido <u><i>nombreCompleto</i></u>, a continuación puedes visualizar el código de verificación para activar tu cuenta: </h4>"
+				+ "<h4 style='background-color:rgba(34, 177, 177, 0.575); width: 70%; margin:20px auto 20px auto; text-align: center;padding:10px 30px 10px 30px;font-style: italic;color:white;letter-spacing: 40px;font-size: 1.5rem;'>XXXXXXX</h4>"
+				+ "</div>";
 	}
 
 	private void creaSesion() {
@@ -45,7 +49,7 @@ public class MetodosEnvioMail {
 			mail.setFrom(new InternetAddress(remitente));
 			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
 			mail.setSubject(asunto);
-			mail.setText(mensaje);
+			mail.setText(mensaje, "ISO-8859-1", "html");
 
 			transporte = sesion.getTransport("smtp");
 			transporte.connect(remitente, contrasena);
