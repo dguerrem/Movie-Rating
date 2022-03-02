@@ -2,10 +2,15 @@ package util;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
+import conexiones.ConexionMySQL;
 import interfaz.Registrar;
 import objetos.Usuario;
 
 public class MetodosRegistroUsuario {
+
+	private static Usuario usu;
 
 	public static void comprobarCampos(String nick, String nombreCompleto, String fechaNacimiento, String correo,
 			char[] password, char[] password2) {
@@ -19,7 +24,7 @@ public class MetodosRegistroUsuario {
 			Registrar.cambiaFormato(2);
 			esError = true;
 		}
-		
+
 		if (password2.length < 8) {
 			Registrar.cambiaFormato(3);
 			esError = true;
@@ -42,13 +47,13 @@ public class MetodosRegistroUsuario {
 
 		if (esUnCorreoValido(correo) && !esError) {
 			String numeroVerificacion = generarNumeroVerificacion();
-			Usuario usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, String.valueOf(password),
+			usu = new objetos.Usuario(nick, nombreCompleto, fechaNacimiento, correo, String.valueOf(password),
 					numeroVerificacion);
 			try {
 				if (MetodosAccesoBD.sePuedeCrear(usu.getNick())) {
 					MetodosAccesoBD.insertUsuario(usu);
-					MetodosEnvioMail.enviaMail();
-					MetodosAccesoBD.compruebaCodigoVerificacion(usu.getNick(), usu.getCodVerificacion());
+					MetodosEnvioMail.enviaMail(usu);
+					compruebaCodigoVerificacion();
 				} else {
 					Registrar.cambiaFormato(7);
 				}
@@ -80,6 +85,31 @@ public class MetodosRegistroUsuario {
 		}
 		Registrar.cambiaFormato(4);
 		return false;
+	}
+
+	private static void compruebaCodigoVerificacion() {
+		String usuCodIntroducido = JOptionPane.showInputDialog(null, "Introduzca el código de verificación: ");
+		int cont = 3;
+
+		while (!usuCodIntroducido.equals(usu.getCodVerificacion()) && cont > 0) {
+			usuCodIntroducido = JOptionPane.showInputDialog(null, "Introduce cod: (" + cont + " intentos)");
+			cont--;
+		}
+
+		if (cont == 0) {
+			bloqueaUsuario();
+		} else {
+			// Entra a la aplicación
+			JOptionPane.showMessageDialog(null, "Se ha verificado correctamente el usuario", "Registro Completo", 3);
+		}
+	}
+
+	private static void bloqueaUsuario() {
+		// Aquí borra todos los campos del formulario y borra el usuario que
+		// recientemente ha creado
+		// además informa al usuario de que debe rellenar de nuevo el usuario
+		JOptionPane.showMessageDialog(null, "El usuario ha sido bloqueado, prueba a crear un nuevo.",
+				"Usuario Bloqueado", 0);
 	}
 
 }

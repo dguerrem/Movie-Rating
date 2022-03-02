@@ -56,26 +56,4 @@ public class MetodosAccesoBD {
 		}
 		return false;
 	}
-
-	public static void compruebaCodigoVerificacion(String usuNick, String usuCodVerificacion) throws SQLException {
-		conexion = ConexionMySQL.conectarMySQL();
-		query = "SELECT codVerificacion FROM usuarios WHERE nick = '" + usuNick + "';";
-		s = conexion.createStatement();
-		rs = s.executeQuery(query);
-		rs.next();
-
-		String usuCod = rs.getString(1);
-		String usuCodIntroducido = JOptionPane.showInputDialog(null, "Introduzca el código de verificación: "); //Pendiente cambiar el texto este de aquí por texto en variables para el multiidoma
-
-		if (usuCod.equals(usuCodIntroducido)) {
-			JOptionPane.showMessageDialog(null, "Usuario Verificado, puedes acceder a tu cuenta");
-			// Aquí habría que ver qué más podemos implementar par que el método quede más
-			// enriquecido.
-		} else {
-			JOptionPane.showMessageDialog(null, "Codigo de Verificacion incorrecto.");
-			// Aquí se me ocurre que puedas introducir el codigo hasta 3 veces, a la tercera
-			// mal el usuario se bloquea.
-		}
-		conexion.close();
-	}
 }
