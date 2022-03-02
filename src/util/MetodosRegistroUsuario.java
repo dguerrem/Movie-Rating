@@ -1,10 +1,7 @@
 package util;
 
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
-
-import conexiones.ConexionMySQL;
 import interfaz.Registrar;
 import objetos.Usuario;
 
@@ -87,29 +84,28 @@ public class MetodosRegistroUsuario {
 		return false;
 	}
 
-	private static void compruebaCodigoVerificacion() {
-		String usuCodIntroducido = JOptionPane.showInputDialog(null, "Introduzca el código de verificación: ");
+	private static void compruebaCodigoVerificacion() throws SQLException {
+		String usuCodIntroducido = JOptionPane.showInputDialog(null,
+				UtilidadesComunes.getConstante("introduzca_codigo"));
 		int cont = 3;
 
 		while (!usuCodIntroducido.equals(usu.getCodVerificacion()) && cont > 0) {
-			usuCodIntroducido = JOptionPane.showInputDialog(null, "Introduce cod: (" + cont + " intentos)");
+			usuCodIntroducido = JOptionPane.showInputDialog(null, UtilidadesComunes.getConstante("introduce_cod") + cont
+					+ UtilidadesComunes.getConstante("intentos"));
 			cont--;
 		}
 
 		if (cont == 0) {
 			bloqueaUsuario();
 		} else {
-			// Entra a la aplicación
-			JOptionPane.showMessageDialog(null, "Se ha verificado correctamente el usuario", "Registro Completo", 3);
+			JOptionPane.showMessageDialog(null, UtilidadesComunes.getConstante("verificado_correctamente"),
+					UtilidadesComunes.getConstante("registro_completo"), 3);
 		}
 	}
 
-	private static void bloqueaUsuario() {
-		// Aquí borra todos los campos del formulario y borra el usuario que
-		// recientemente ha creado
-		// además informa al usuario de que debe rellenar de nuevo el usuario
-		JOptionPane.showMessageDialog(null, "El usuario ha sido bloqueado, prueba a crear un nuevo.",
-				"Usuario Bloqueado", 0);
+	private static void bloqueaUsuario() throws SQLException {
+		MetodosAccesoBD.deleteUsuario(usu);
+		JOptionPane.showMessageDialog(null, UtilidadesComunes.getConstante("usuario_bloqueado"),
+				UtilidadesComunes.getConstante("usu_bloq"), 0);
 	}
-
 }

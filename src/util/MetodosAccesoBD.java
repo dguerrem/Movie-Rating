@@ -14,6 +14,7 @@ public class MetodosAccesoBD {
 	private static Connection conexion;
 	private static String query = "";
 	private static Statement s;
+	private static PreparedStatement pstm;
 	private static ResultSet rs;
 
 	public static void insertUsuario(Usuario usu) throws SQLException {
@@ -23,11 +24,10 @@ public class MetodosAccesoBD {
 				+ "', '" + usu.getPassword() + "', '" + usu.getCodVerificacion() + "', '" + usu.getTipo() + "', '"
 				+ usu.getCorreo() + "')";
 
-		PreparedStatement pstm = conexion.prepareStatement(query);
+		pstm = conexion.prepareStatement(query);
 		pstm.execute();
 
-		//Pendiente cambiar el texto este de aquí por texto en variables para el multiidoma
-		JOptionPane.showMessageDialog(null, "Revise su correo", "Usuario creado correctamente", 0,
+		JOptionPane.showMessageDialog(null, UtilidadesComunes.getConstante("revise_correo"), UtilidadesComunes.getConstante("usuario_creado_correctamente"), 0,
 				new ImageIcon("src/iconos/mensaje.png"));
 		conexion.close();
 	}
@@ -55,5 +55,15 @@ public class MetodosAccesoBD {
 			return true;
 		}
 		return false;
+	}
+
+	public static void deleteUsuario(Usuario usu) throws SQLException {
+		conexion = ConexionMySQL.conectarMySQL();
+		query = "DELETE FROM usuarios WHERE nick = '"+  usu.getNick() + "'";
+
+		pstm = conexion.prepareStatement(query);
+		pstm.execute();
+
+		conexion.close();
 	}
 }
